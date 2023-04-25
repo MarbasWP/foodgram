@@ -14,7 +14,7 @@ from Users.models import User, Follow
 from Recipes.models import Tag, Ingredient, Recipes, IngredientRecipe, Carts, Favorites
 from .permissions import AuthorStaffOrReadOnly, IsAuthenticated
 from .serializers import UserSerializer, TagSerializer, IngredientSerializer, RecipeSerializer, UserSubscribeSerializer, \
-    ShoppingCartSerializer
+    ShoppingCartSerializer, CreateRecipeSerializer
 
 
 class UserViewSet(DjoserUserViewSet):
@@ -74,6 +74,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
     serializer_class = RecipeSerializer
     permission_classes = (AuthorStaffOrReadOnly,)
     pagination_class = LimitOffsetPagination
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return RecipeSerializer
+        return CreateRecipeSerializer
 
     @staticmethod
     def send_message(ingredients):

@@ -95,7 +95,8 @@ class Recipes(models.Model):
         default='None')
     ingredients = models.ManyToManyField(
         Ingredient,
-        verbose_name='Продукты'
+        verbose_name='Продукты',
+        through='IngredientRecipe'
     )
     tags = models.ManyToManyField(
         Tag,

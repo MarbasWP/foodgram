@@ -112,7 +112,7 @@ class IngredientRecipeSerializer(serializers.ModelSerializer):
 
 
 class RecipeSerializer(serializers.ModelSerializer):
-    tags = TagSerializer(many=True, read_only=True)
+    tags = TagSerializer(many=True)
     author = UserSerializer(read_only=True, many=True)
     ingredients = IngredientRecipeSerializer(
         many=True,
@@ -125,10 +125,6 @@ class RecipeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recipes
         fields = '__all__'
-        read_only_fields = (
-            'is_favorited',
-            'is_shopping_cart',
-        )
 
     def get_ingredients(self, obj):
         return (
