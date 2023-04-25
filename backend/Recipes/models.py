@@ -120,11 +120,6 @@ class Recipes(models.Model):
             prodocts=self.ingredients, description=self.text
         )
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        Image.open(
-            self.image.path).resize(500).save(self.image.path)
-
 
 class IngredientRecipe(models.Model):
     recipe = models.ForeignKey(

@@ -206,7 +206,7 @@ class CreateRecipeSerializer(serializers.ModelSerializer):
                 IngredientRecipe(
                     ingredient=ingredient.pop('id'),
                     amount=ingredient.pop('amount'),
-                    recipe=recipe
+                    recipe=recipe,
                 )
             )
         IngredientRecipe.objects.bulk_create(ingredients_list)
