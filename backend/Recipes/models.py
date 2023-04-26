@@ -5,7 +5,7 @@ from Users.models import User
 TEXT_RECIPES = (
     'Название рецепта: {name}, Автор: {author}'
     'Приём пищи: {tag}, время приготовления: {time}'
-    'Продукты: {products}'
+    'Продукты: {ingredients}'
     'Описание: {description}'
 )
 TEXT_PRODUCT = (
@@ -115,7 +115,7 @@ class Recipes(models.Model):
         return TEXT_RECIPES.format(
             name=self.name, author=self.author,
             tag=self.tags, time=self.cooking_time,
-            prodocts=self.ingredients, description=self.text
+            ingredients=self.ingredients, description=self.text
         )
 
 
@@ -143,7 +143,7 @@ class IngredientRecipe(models.Model):
         ordering = ('recipe',)
 
     def __str__(self):
-        return f'{self.recipe} - {self.mount} {self.ingredients}'
+        return f'{self.recipe} - {self.amount} {self.ingredients}'
 
 
 class Favorites(models.Model):
