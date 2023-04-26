@@ -1,5 +1,6 @@
 from django.core.validators import RegexValidator, MinValueValidator
 from django.db import models
+from PIL import Image
 from Users.models import User
 TEXT_RECIPES = (
     'Название рецепта: {name}, Автор: {author}'
@@ -116,6 +117,12 @@ class Recipes(models.Model):
             tag=self.tags, time=self.cooking_time,
             prodocts=self.ingredients, description=self.text
         )
+
+    def save(self, *args, **kwargs) -> None:
+        super().save(*args, **kwargs)
+        image = Image.open(self.image.path)
+        image = image.resize(500, 300)
+        image.save(self.image.path)
 
 
 class IngredientRecipe(models.Model):

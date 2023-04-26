@@ -12,7 +12,7 @@ from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from Users.models import User, Follow
 from Recipes.models import Tag, Ingredient, Recipes, IngredientRecipe, Carts, Favorites
-from .permissions import AuthorStaffOrReadOnly, IsAuthenticated
+from .permissions import AuthorStaffOrReadOnly, IsAuthenticated, AdminOrReadOnly
 from .serializers import UserSerializer, TagSerializer, IngredientSerializer, RecipeSerializer, UserSubscribeSerializer, \
     ShoppingCartSerializer, CreateRecipeSerializer
 
@@ -60,7 +60,7 @@ class UserViewSet(DjoserUserViewSet):
 class TagViewSet(ReadOnlyModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
-    permission_classes = (AuthorStaffOrReadOnly,)
+    permission_classes = (AdminOrReadOnly,)
 
 
 class IngredientViewSet(ReadOnlyModelViewSet):
