@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import NotFound
 from rest_framework.validators import UniqueValidator
 from django.core.exceptions import ValidationError
+from drf_extra_fields.fields import Base64ImageField
 from Users.models import User
 from Recipes.models import Tag, Ingredient, IngredientRecipe, Recipes, Carts
 from rest_framework import status
@@ -118,7 +119,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     )
     is_favorited = serializers.SerializerMethodField()
     is_in_shopping_cart = serializers.SerializerMethodField()
-    image = serializers.ImageField()
+    image = Base64ImageField(max_length=None)
 
     class Meta:
         model = Recipes
