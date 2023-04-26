@@ -81,7 +81,6 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
         fields = '__all__'
-        read_only_fields = '__all__',
 
     def validate(self, data):
         for attr, value in data.items():
@@ -94,7 +93,6 @@ class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingredient
         fields = '__all__'
-        read_only_fields = '__all__',
 
 
 class IngredientRecipeSerializer(serializers.ModelSerializer):
@@ -103,7 +101,7 @@ class IngredientRecipeSerializer(serializers.ModelSerializer):
     )
     name = serializers.ReadOnlyField(source='ingredient.name')
     measure_unit = serializers.ReadOnlyField(
-        source='ingredient.measure_unit'
+        source='ingredient.measurement_unit'
     )
 
     class Meta:
@@ -116,7 +114,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True, many=True)
     ingredients = IngredientRecipeSerializer(
         many=True,
-        source='IngredientRecipe'
+        source='ingredienttorecipe'
     )
     is_favorited = serializers.SerializerMethodField()
     is_in_shopping_cart = serializers.SerializerMethodField()

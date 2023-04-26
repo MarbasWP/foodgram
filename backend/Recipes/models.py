@@ -1,6 +1,5 @@
 from django.core.validators import RegexValidator, MinValueValidator
 from django.db import models
-from PIL import Image
 from Users.models import User
 TEXT_RECIPES = (
     'Название рецепта: {name}, Автор: {author}'
@@ -76,14 +75,12 @@ class Recipes(models.Model):
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        blank=False,
-        null=False,
-        verbose_name='Автор'
+        verbose_name='Автор',
+        related_name='recipes'
     )
     pub_date = models.DateTimeField(
         verbose_name='Дата публикации',
-        auto_now=True,
-        editable=False
+        auto_now=True
     )
     image = models.ImageField(
         upload_to='recipes',
@@ -125,15 +122,16 @@ class IngredientRecipe(models.Model):
     recipe = models.ForeignKey(
         Recipes,
         on_delete=models.CASCADE,
-        verbose_name='В каких рецептах'
+        verbose_name='В каких рецептах',
+        related_name='ingredienttorecipe',
     )
     ingredients = models.ForeignKey(
         Ingredient,
         on_delete=models.CASCADE,
         verbose_name='Связанные ингредиенты'
     )
-    mount = models.PositiveIntegerField(
-        verbose_name='Количество',
+    amount = models.PositiveIntegerField(
+        verbose_name='Количество ингредиента',
         default=0,
         validators=(MinValueValidator(0, 'Добавь больше'),)
     )
