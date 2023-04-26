@@ -121,7 +121,7 @@ class Recipes(models.Model):
     def save(self, *args, **kwargs) -> None:
         super().save(*args, **kwargs)
         image = Image.open(self.image.path)
-        image = image.resize(500, 300)
+        image = image.resize((500, 300))
         image.save(self.image.path)
 
 
