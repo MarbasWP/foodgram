@@ -5,7 +5,7 @@
 - Django REST framework 3.14
 - Nginx
 - Docker
-- Postgres
+- PostgreSQL
 
 ## https://foodgram.gq
 
