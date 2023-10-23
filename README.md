@@ -103,3 +103,4 @@ Upload it to the database with the following command:
 ```text
 sudo docker exec -it foodgram-app python manage.py loaddata data/dump.json
 ```
+КОНЕЦ
